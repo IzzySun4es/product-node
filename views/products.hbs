@@ -8,9 +8,19 @@
 </head>
 <body>
     <h2>Каталог продуктов</h2>
-    {{#each products}}
-    <a href="product/{{this.id}}"> {{this.name}}</a>
-    {{/each}}
+    <ul>
+        {{#each products}}
+             <li><a href="product/{{this.id}}"> {{this.name}}</a></li> 
+
+        {{/each}}
+    </ul>
+    <form action="/products" method="post">
+    <input type="text" placeholder="Название" name="name">
+    <input type="text" placeholder="Количество" name="count">
+    <input type="text" placeholder="Цена" name="price">
+    <button type="submit">Отправить</button>
+    </form>
+    
     
 </body>
 </html>
