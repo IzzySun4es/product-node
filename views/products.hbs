@@ -10,7 +10,10 @@
     <h2>Каталог продуктов</h2>
     <ul>
         {{#each products}}
-             <li><a href="product/{{this.id}}"> {{this.name}}</a></li> 
+             <li>
+                 <a href="product/{{this.id}}"> {{this.name}}</a>  
+                <a href="delete/{{this.id}}">x</a> 
+             </li> 
 
         {{/each}}
     </ul>

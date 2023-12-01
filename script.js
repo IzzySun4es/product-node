@@ -67,12 +67,25 @@ app.post('/products', urlparser, function (req, res){
 })
 
 app.get('/product/:id', function (req, res){
-    const productId = req.params.id
+    const productId = req.params.id;
 
     Products.findOne({where: { id: productId }}).then((data) => {
         res.render("product.hbs", {product: data});
     })
     
+});
+
+
+
+app.get('/delete/:id', function (req, res){
+    const productId = req.params.id;
+    Products.destroy({
+        where: {
+            id: productId
+        }
+    }).then(() => {
+        res.redirect('/products');
+    })
 });
 
 app.get('/', function (req, res){
