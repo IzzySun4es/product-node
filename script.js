@@ -3,6 +3,7 @@ const bodyParser = require('body-parser')
 const urlparser = bodyParser.urlencoded({extended: false});
 
 const Sequelize = require('sequelize');
+const urlencoded = require('body-parser/lib/types/urlencoded');
 const app = express();
 
 
@@ -76,7 +77,7 @@ app.get('/product/:id', function (req, res){
 });
 
 
-
+//Удаление
 app.get('/delete/:id', function (req, res){
     const productId = req.params.id;
     Products.destroy({
@@ -85,6 +86,32 @@ app.get('/delete/:id', function (req, res){
         }
     }).then(() => {
         res.redirect('/products');
+    })
+});
+
+//Редактирование
+app.get('/update/:id', function (req, res){
+    Products.findOne({
+        where: {
+            id: req.params.id
+        }
+    }).then((data) => {
+        res.render('update.hbs', {product: data});
+    })
+
+});
+
+
+app.put('/update', urlencoded, function (req, res){
+    let id = req.body.id;
+    let name = req.body.name;
+    let count = req.body.count;
+    let price = req.body.price;
+
+    Products.update({name: name, count: count, price: price}, {
+        where: {
+            id: req.body.id
+        }
     })
 });
 
